@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu</title>
+    <meta charset ="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}"> 
+</head>
+<body>
+    <div class="background-container">
+        <img src="{{ url_for('static', filename='Ingredible_menu.png') }}" alt="Image alternative text">
+    </div>
+    <h1>Bienvenue, {{ username }}</h1>
+    <h2>Mes Recettes</h2>
+    <!-- Bouton de filtrage -->
+    <button id="filter-button" onclick="toggleFilter()">Filtrer</button>
+    <div id="filter-options" style="display: none;">
+        <h3>Filtrer par ingrédient :</h3>
+        <ul>
+            <!-- Liste des ingrédients disponibles -->
+            {% for ingredient in all_ingredients %}
+                <li>
+                    <label>
+                        <input type="checkbox" name="ingredients" value="{{ ingredient.id }}"> {{ ingredient.name }}
+                    </label>
+                </li>
+            {% endfor %}
+        </ul>
+        <button onclick="applyFilter()">Appliquer le filtre</button>
+    </div>
+    <div class="cadre-container">
+        <ul>
+            {% for recipe in recipes %}
+            <li class="cadre">
+                {{ recipe.name }}
+                <a href="{{ url_for('view_recipe', recipe_id=recipe.id) }}">Voir la recette</a>
+                <form method="post" action="{{ url_for('toggle_favorite') }}">
+                    <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+                    <button type="submit" class="no-border toggle-favorite" data-recipe-id="{{ recipe.id }}">
+                        {% if recipe.is_favorite.filter_by(user_id=user_id).first() %}
+                        ❤️
+                        {% else %}
+                        🤍
+                        {% endif %}
+                    </button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <a href="{{ url_for('favorite_recipes') }}" class="heart-button">❤️</a>
+    <a href="{{ url_for('list_ingredients') }}" class="cart-button">🛒</a>
+
+    <div class="profile-button" onclick="toggleMenu()">⚙️</div>  
+    <div class="scrolling-menu" id="scrolling-menu">
+        <a href="{{ url_for('logout') }}" class="logout-button">Déconnexion</a>
+        <a href="{{ url_for('delete_account') }}" class="delete-button">Supprimer le compte</a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById('scrolling-menu');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        }
+    </script>
+    <script>
+    $(document).ready(function() {
+        $(".toggle-favorite").click(function(e) {
+            e.preventDefault(); // Empêche le comportement par défaut du formulaire
+            
+            var recipe_id = $(this).data("recipe-id");
+            var button = $(this);
+            
+            $.ajax({
+                url: '/toggle_favorite',
+                type: 'POST',
+                data: { recipe_id: recipe_id },
+                success: function(response) {
+                    if (response.success) {
+                        // Mettre à jour l'icône en fonction de la réponse
+                        if (button.text() === '❤️') {
+                            button.text('🤍');
+                        } else {
+                            button.text('❤️');
+                        }
+                        
+                        // Mettre à jour la liste des recettes si la suppression a réussi
+                        updateRecipeList();
+                    } else {
+                        alert("Une erreur s'est produite.");
+                    }
+                },
+                error: function() {
+                    alert("Une erreur s'est produite.");
+                }
+            });
+        });
+
+        // Fonction pour mettre à jour la liste des recettes
+        function updateRecipeList() {
+            // Rechargez la page pour actualiser les données depuis le serveur
+            location.reload();
+        }
+    });
+
+    // JavaScript pour le filtrage
+    function toggleFilter() {
+        var filterOptions = document.getElementById('filter-options');
+        if (filterOptions.style.display === 'block') {
+            filterOptions.style.display = 'none';
+        } else {
+            filterOptions.style.display = 'block';
+        }
+    }
+
+    function applyFilter() {
+        var selectedIngredients = document.querySelectorAll('input[name="ingredients"]:checked');
+        var ingredientIds = Array.from(selectedIngredients).map(ingredient => ingredient.value);
+
+        // Créez une chaîne JSON pour les ingrédients sélectionnés
+        var ingredientIdsJson = JSON.stringify(ingredientIds);
+
+        // Redirigez vers la page de filtrage avec les ingrédients sélectionnés
+        window.location.href = "{{ url_for('filter_recipes', ingredient_ids=ingredientIdsJson) }}";
+    }
+    </script>
+</body>
+</html>

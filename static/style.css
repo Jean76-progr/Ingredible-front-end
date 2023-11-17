@@ -1,0 +1,163 @@
+body {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.background-container img {
+    position: absolute; /* Position the image absolutely */
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the image cover the container */
+    height: 100%;
+    z-index: -1; /* Place the image behind the content */
+}
+
+.cadre-container {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    position: absolute; /* Position absolue par rapport au conteneur parent */
+    top: 20%; /* Position verticale en haut du conteneur parent */
+    left: 16%; /* Position horizontale au milieu du conteneur parent */
+    transform: translate(-50%, 0); /* Décalage de -50% de la largeur du cadre */
+}
+
+.cadre {
+    border: 1px solid #000; /* Couleur et style de la bordure de votre choix */
+    padding: 10px; /* Marge interne pour créer de l'espace entre la bordure et le contenu */
+    margin: 10px; /* Marge externe pour créer de l'espace entre chaque cadre */
+}
+
+h1 {
+    font-size:40px;
+    color: #392114; /* Couleur en hexadécimal */
+    text-align: left;
+    margin-top: 50px;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 50px;
+    color:rgb(28, 162, 62) ;
+    text-align: center;
+    margin-top: 70px;
+}
+
+button.no-border {
+    border: none;
+    background: transparent;
+}
+.scrolling-menu {
+    display: none;
+    position: absolute;
+    top: 130px; /* Ajustez la position verticale selon vos besoins */
+    right: 10px;
+    width: 200px; /* Ajustez la largeur selon vos besoins */
+    background: white;
+    overflow-y: auto;
+    border: 1px solid #ccc; /* Ajoutez une bordure pour la barre défilante */
+}
+
+/* Style pour le bouton de déconnexion */
+.logout-button {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    background: #E74C3C; /* Couleur de fond de votre choix */
+    color: white;
+    text-decoration: none;
+}
+
+.delete-button {
+    display: block;
+    padding: 10px;
+    text-align: center;
+    background: #3c47e7; /* Couleur de fond de votre choix */
+    color: white;
+    text-decoration: none;
+}
+
+.cart-button {
+    display: block;
+    font-size: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 28px;
+    right: 265px;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;  
+}
+
+.cart-button:hover {
+    transform: scale(1.1);
+}
+/* Style pour le bouton*/
+.profile-button {
+    display: block;
+    font-size: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 28px;
+    right: 65px;
+    padding: 10px;
+}
+
+.profile-button:hover {
+    transform: scale(1.1);
+}
+
+.heart-button {
+    display: block;
+    font-size: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: 28px;
+    right: 160px;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;  
+}
+
+.heart-button:hover {
+    transform: scale(1.1);
+}
+
+.content {
+    position: absolute;
+    flex-wrap: none;
+    top: 0;
+    left:0;
+    display: flex;
+    margin-top: 150px;
+    overflow-y: hidden;
+}
+
+.column {
+    flex: 1 ;
+    padding: 20px;
+    margin: 30px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    max-height: 800px;
+    position: relative;
+    overflow: auto;
+    margin-top: 50px;
+}
+
+.return-button {
+    display: block;
+    font-size: 80px;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    padding: 8px;
+    text-decoration: none;
+    color: inherit;  
+}
+
+.return-button:hover {
+    transform: scale(1.1);
+}

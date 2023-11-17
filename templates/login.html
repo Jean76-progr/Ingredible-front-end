@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset ="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}"> 
+</head>
+<body>
+    <div class="background-container">
+        <img src="{{ url_for('static', filename='Ingredible_connexion.gif') }}" alt="Image alternative text">
+    </div>
+    <div class="cadre-container-connexion">
+        <!-- Formulaire de connexion -->
+        <div class="cadre">
+            <form action="/login" method="post">
+                <label for="login-username" class="custom-label">Nom d'utilisateur</label>
+                <input type="text" id="login-username" name="username" class="custom-input"required>
+                <br>
+                <label for="login-password" class="custom-label">Mot de passe</label>
+                <input type="password" id="login-password" name="password" class="custom-input"required>
+                <br>
+                <div class="button">
+                    <button type="submit">Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Supression</title>
+    <meta charset ="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+</head>
+<body>
+    <div class="background-container">
+        <img src="{{ url_for('static', filename='Ingredible_delete.png') }}" alt="Image alternative text">
+    </div>
+    <!-- Formulaire pour la suppression de compte -->
+  <h4>Supprimer un compte</h4>
+    <form action="/delete_account" method="post">
+      <button type="submit">Supprimer le compte</button>
+    </form>
+</body>
+</html>

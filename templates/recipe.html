@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Recette</title>
+</head>
+<body>
+    <h1>{{ recipe.name }}</h1>
+    <p>Instructions : {{ recipe.instructions }}</p>
+    <form method="post" action="/decrease_servings">
+        <button type="submit">Réduire les portions</button>
+    </form>
+    <form method="post" action="/increase_servings">
+        <button type="submit">Augmenter les portions</button>
+    </form>
+    <p>Nombre de convives : {{ session['servings'] }}</p>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe.name }}</title>
+</head>
+<body>
+    <h1>{{ recipe.name }}</h1>
+    <h2>Ingrédients :</h2>
+    <ul>
+        {% for ingredient in ingredients %}
+            <li>{{ ingredient.name }}</li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <!-- Ajoutez ces boutons pour ajuster le nombre de convives -->
+        <button id="decrease-servings">Moins de convives</button>
+        <button id="increase-servings">Plus de convives</button>
+        <p>Nombre de convives : <span id="servings">4</span></p>
+    </ul>
+    
+    <h3>Instructions :</h3>
+    <p>{{ recipe.instructions }}</p>
+</body>
+</html>
+
+
+<script>
+    // Sélectionnez les éléments HTML pertinents
+    const servingsElement = document.getElementById('servings');
+    const decreaseButton = document.getElementById('decrease-servings');
+    const increaseButton = document.getElementById('increase-servings');
+
+    // Fonction pour mettre à jour les quantités d'ingrédients
+    function updateIngredientQuantities() {
+        const servings = parseInt(servingsElement.textContent);
+        const originalServings = 4;  // Nombre de convives original
+
+        // Sélectionnez les éléments d'ingrédients que vous souhaitez ajuster
+        const ingredientElements = document.querySelectorAll('.ingredient');
+
+        // Parcourez chaque élément d'ingrédient et mettez à jour la quantité affichée
+        ingredientElements.forEach(ingredientElement => {
+            const originalQuantity = parseFloat(ingredientElement.dataset.originalQuantity);
+            const adjustedQuantity = (originalQuantity * servings) / originalServings;
+
+            // Mettez à jour la quantité affichée
+            ingredientElement.textContent = ingredientElement.dataset.name + ': ' + adjustedQuantity.toFixed(2);  // Vous pouvez formater la quantité comme vous le souhaitez
+        });
+    }
+
+    // Ajoutez des gestionnaires d'événements aux boutons
+    decreaseButton.addEventListener('click', () => {
+        const servings = parseInt(servingsElement.textContent);
+        if (servings > 1) {
+            servingsElement.textContent = servings - 1;
+            updateIngredientQuantities();
+        }
+    });
+
+    increaseButton.addEventListener('click', () => {
+        const servings = parseInt(servingsElement.textContent);
+        servingsElement.textContent = servings + 1;
+        updateIngredientQuantities();
+    });
+
+    // Appelez la fonction initiale pour afficher les quantités initiales
+    updateIngredientQuantities();
+
+    // Fonction pour mettre à jour les quantités d'ingrédients
+    function updateIngredientQuantities() {
+        const servings = parseInt(servingsElement.textContent);
+        const originalServings = 4;  // Nombre de convives original
+
+        // Sélectionnez les éléments d'ingrédients que vous souhaitez ajuster
+        const ingredientElements = document.querySelectorAll('.ingredient');
+
+    // Parcourez chaque élément d'ingrédient et mettez à jour la quantité affichée
+    ingredientElements.forEach(ingredientElement => {
+        const originalQuantity = parseFloat(ingredientElement.dataset.originalQuantity);
+        const adjustedQuantity = (originalQuantity * servings) / originalServings;
+
+        // Mettez à jour la quantité affichée
+        ingredientElement.textContent = ingredientElement.dataset.name + ': ' + adjustedQuantity.toFixed(2) + ' ' + ingredientElement.dataset.unit;
+    });
+}
+
+</script>
+
+

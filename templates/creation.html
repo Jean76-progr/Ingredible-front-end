@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset ="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}"> 
+</head>
+<body>
+    <div class="background-container">
+        <img src="{{ url_for('static', filename='Ingredible.gif') }}" alt="Image alternative text">
+    </div>
+    <div class="cadre-container">
+
+        <!-- Formulaire pour la création de compte -->
+        <div class="cadre">
+            <h1>Créer un compte</h1>
+            <form action="/create_account" method="post">
+                <label for="create-username" class="custom-label">Nom d'utilisateur</label>
+                <input type="text" id="create-username" name="username" class="custom-input"required>
+                <br>
+                <label for="create-password" class="custom-label">Mot de passe</label>
+                <input type="password" id="create-password" name="password" class="custom-input"required>
+                <br>
+                <div class="button">
+                    <button type="submit">Créer un compte</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="cadre-container2">
+     <!-- Lien pour la page de connexion -->
+        <div class="cadre">
+           <h2>Déjà un compte ? Connectez-vous</h2>
+           <a href="/login" class="custom-label">log in</a>
+        </div>
+    </div>
+</body>
+</html>
